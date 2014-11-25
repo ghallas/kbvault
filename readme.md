@@ -27,5 +27,5 @@ _Please provide feedback for bugs and features. Help me to make something useful
 * Admin interface using [Admin LTE](http://almsaeedstudio.com/AdminLTE)
 * Nested categories and multi level menu via [SmartMenus](https://github.com/vadikom/smartmenus)
 * User roles ( Admin/Manager/Editor )
-* Primitive backup/restore feature 
+* Backup/restore feature 
 * Built with ASP.NET MVC.
