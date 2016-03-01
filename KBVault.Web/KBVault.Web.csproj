@@ -932,6 +932,7 @@
     <Content Include="Views\Home\Categories.cshtml" />
     <Content Include="Views\Home\Tags.cshtml" />
     <Content Include="Views\Search\Do.cshtml" />
+    <None Include="Properties\PublishProfiles\dev%2810.0.0.210%29.pubxml" />
     <None Include="Properties\PublishProfiles\LocalIIS-Deployment.pubxml" />
   </ItemGroup>
   <ItemGroup>
