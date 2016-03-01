@@ -11,13 +11,12 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        
-    @{ Html.RenderPartial("GoogleFonts"); }
-
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600,800' rel='stylesheet' type='text/css' />    
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/redmond/jquery-ui.css">
     @Styles.Render("~/public/css")         
 
      <script type="text/javascript">
-         var KB_SearchUrl = "@Url.Action("Ajax", "Search")";
+         var KB_SearchUrl = "@Url.Action("Ajax","Search")";
     </script>
 </head>
 <body>
@@ -28,21 +27,21 @@
                 <a href="/"><span>@ViewBag.CompanyName</span></a> 
                 <small>@ViewBag.TagLine</small>
             </h1>
-            <p id="htmlJumbotronText" class="lead">@ViewBag.JumbotronText</p>
+            <p runat="server" id="htmlJumbotronText" class="lead"></p>
         </div>
     </header>
-    <div class="container">        
-        <div class="row">                            
-            @using (Html.BeginForm("Do", "Search", FormMethod.Post, new { id = "SearchForm" }))
-            {
-                <div class="input-group">
-                    <input type="hidden" name="ArticleId" id="ArticleId" value="" />                    
-                    <input type="text" class="form-control search-control" placeholder="Enter search text" ID="txtSearch" name="SearchKeyword" />                    
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 input-group input-group-lg">
+                @using (Html.BeginForm("Do", "Search", FormMethod.Post, new { id = "SearchForm" }))
+                {
+                    <input type="hidden" name="ArticleId" id="ArticleId" value="" />
+                    <input type="text" class="form-control search-control" placeholder="Enter search text" ID="txtSearch" name="SearchKeyword" />
                     <span class="input-group-btn">
                         <input type="submit"  id="btnDoSearch" class="btn btn-default" value="@CommonResources.ButtonSearch" />
                     </span>
-                </div>
-            }                                
+                }
+            </div>
         </div>
         <div class="clearfix">&nbsp;</div>
         <div class="row">
@@ -54,22 +53,22 @@
                     @foreach (var category in Model.HotCategories)
                     {
                         <div class="col-lg-6">
-                            <div class="row">
+                            <span class="row">
                                 <i class="fa fa-folder-open-o fa-fw text-muted"></i>
                                 @category.Name
                                 <span class="badge">@category.Articles.Count</span> 
-                            </div>
-                            <div class="row">
+                            </span>
+                            <span class="row">
                                 <ul class="fa-ul">
                                 @foreach (var article in category.Articles.Take((int)ViewBag.ArticleDisplayCount))
                                 {
                                     <li>
                                         <i class="fa-li fa fa-list-alt fa-fw text-muted"></i>
-                                        <a href='@Url.Action("Detail", "Home", new { id = article.SefName })'>@article.Title</a>
+                                        <a href='@Url.Action("Detail","Home",new {id=article.SefName})'>@article.Title</a>
                                     </li>
                                 }                 
                                 </ul>                            
-                            </div>
+                            </span>
                         </div>
                     }
                 </div>
@@ -77,7 +76,7 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <h4 class="section-title clearfix">
-                            <span class="line"></span>@UIResources.LandingLatestArticlesTitle
+                            <span class="line"></span>Latest Articles
                         </h4>
                         <div class="row">
                             <ul class="fa-ul">
@@ -93,7 +92,7 @@
                     </div>
                     <div class="col-lg-6">
                         <h4 class="section-title clearfix">
-                            <span class="line"></span>@UIResources.LandingPopularArticlesTitle
+                            <span class="line"></span>Popular Articles
                         </h4>
                         <div class="row">
                             <ul class="fa-ul">
@@ -116,7 +115,7 @@
                     {                        
                         <div class="row">
                             <i class="fa fa-arrow-circle-o-right text-muted"></i>
-                            <a href="@Url.Action("Categories", "Home", new { id = category.SefName })">@category.Name</a>
+                            <a href="@Url.Action("Categories","Home",new { id=category.SefName})">@category.Name</a>
                             @* <span class="badge">@category.Articles.Count</span> *@
                             
                         </div>                        
@@ -130,7 +129,7 @@
                     <div>
                         @foreach (var tag in Model.PopularTags)
                         {
-                            <a class="btn-xs btn btn-primary"  href='@Url.Action("Tags", "Home", new { id = tag.Name })'>
+                            <a class="btn-xs btn btn-primary" style="font-size:@tag.FontSize%; margin:2px" href='@Url.Action("Tags","Home",new{id=tag.Name})'>
                                 @tag.Name
                              </a> 
                         }
@@ -139,22 +138,9 @@
             </div>
         </div>
     </div>
-    
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
     @Scripts.Render("~/public/js")    
-
-    @if (!String.IsNullOrEmpty(ViewBag.AnalyticsAccount))
-    {
-        <script>
-            (function (i, s, o, g, r, a, m) {
-                i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-                    (i[r].q = i[r].q || []).push(arguments)
-                }, i[r].l = 1 * new Date(); a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
-            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-
-            ga('create', '@ViewBag.AnalyticsAccount', 'auto');
-            ga('send', 'pageview');
-        </script>
-    }
 </body>
 </html>

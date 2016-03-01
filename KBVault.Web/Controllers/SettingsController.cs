@@ -6,9 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using KBVault.Web.Models;
 using KBVault.Dal;
-
-using Resources;
-using KBVault.Web.Helpers;
+using KBVault.Web.Resources;
 
 namespace KBVault.Web.Controllers
 {
@@ -40,16 +38,6 @@ namespace KBVault.Web.Controllers
                         set.ShareThisPublicKey = model.ShareThisPublicKey;
                         set.TagLine = model.TagLine;
                         set.IndexFileExtensions = model.IndexFileExtensions;
-                        set.ArticlePrefix = model.ArticlePrefix;
-                        set.AnalyticsAccount = model.AnalyticsAccount;
-                        set.Author = KBVaultHelperFunctions.UserAsKbUser(User).Id;                        
-                        set.BackupPath = model.BackupPath;
-                        if (!set.BackupPath.EndsWith("\\") && !set.BackupPath.StartsWith("~"))
-                            set.BackupPath += "\\";
-                        if (!set.BackupPath.EndsWith("/") && set.BackupPath.StartsWith("~"))
-                            set.BackupPath += "/";
-
-
                         db.Settings.Add(set);
                         db.SaveChanges();
                         ShowOperationMessage(UIResources.SettingsPageSaveSuccessfull);

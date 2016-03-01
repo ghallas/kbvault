@@ -9,7 +9,7 @@ using KBVault.Dal;
 using KBVault.Web.Models;
 using MvcPaging;
 using KBVault.Web.Helpers;
-using Resources;
+using KBVault.Web.Resources;
 
 namespace KBVault.Web.Controllers
 {
@@ -24,7 +24,7 @@ namespace KBVault.Web.Controllers
             if (Request.IsAjaxRequest() )
             {
                 using (var db = new KbVaultEntities())
-                {                    
+                {
                     var article = db.Articles.FirstOrDefault(a => a.Id == articleId);
                     if (article == null)
                     {
@@ -99,15 +99,8 @@ namespace KBVault.Web.Controllers
                     Article article = db.PublishedArticles().FirstOrDefault(a => a.SefName == id);                                  
                     if (article != null)
                     {
-                        article.Views++;                        
+                        article.Views++;
                         db.SaveChanges();
-                        DateTime today = DateTime.Now.Date;
-                        ViewBag.SimilarArticles = db.GetSimilarArticles((int)article.Id)
-                                                    .Where( a => a.PublishStartDate <= today &&
-                                                                a.PublishEndDate >= today &&
-                                                                a.IsDraft == 0
-                                                                )
-                                                    .ToList();
                         return View(article);
                     }
                     else
@@ -130,7 +123,7 @@ namespace KBVault.Web.Controllers
                 LandingPageViewModel model = new LandingPageViewModel();
                 model.HotCategories = db.Categories.Include("Articles").Where(c => c.IsHot).ToList();
                 DateTime dateRangeToday = DateTime.Now.Date;
-                ViewBag.Title = Settings.CompanyName;
+
                 model.FirstLevelCategories = db.Categories.Include("Articles").Where(c => c.Parent == null).OrderBy(c => c.Name).ToList();
                 model.LatestArticles = db.PublishedArticles()                                       
                                         .OrderByDescending(a => a.Edited)

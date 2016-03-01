@@ -50,9 +50,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Activity.cs">
-      <DependentUpon>KbVaultEntityModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Article.cs">
       <DependentUpon>KbVaultEntityModel.tt</DependentUpon>
     </Compile>
@@ -86,9 +83,6 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Setting.cs">
-      <DependentUpon>KbVaultEntityModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SimilarArticle.cs">
       <DependentUpon>KbVaultEntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Tag.cs">

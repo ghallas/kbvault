@@ -9,7 +9,6 @@ namespace KBVault.Web.Helpers
 {
     public static class KbVaultHtmlHelperExtensions
     {
-        
         //
         // Jquery helpers functions
         // taken from:

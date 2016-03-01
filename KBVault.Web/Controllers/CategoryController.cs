@@ -7,8 +7,7 @@ using KBVault.Dal;
 using KBVault.Web.Models;
 using NLog;
 using MvcPaging;
-using Resources;
-using KBVault.Web.Helpers;
+using KBVault.Web.Resources;
 
 namespace KBVault.Web.Controllers
 {
@@ -32,7 +31,6 @@ namespace KBVault.Web.Controllers
                             cat.Parent = model.ParentId;
                         cat.IsHot = model.IsHot;
                         cat.SefName = model.SefName;
-                        cat.Author = KBVaultHelperFunctions.UserAsKbUser(User).Id;
                         db.Categories.Add(cat);                        
                         db.SaveChanges();
                         ShowOperationMessage(@UIResources.CategoryPageCreateSuccessMessage);
@@ -68,7 +66,6 @@ namespace KBVault.Web.Controllers
                     {
                         if (cat.Articles.Count() == 0)
                         {
-                            cat.Author = KBVaultHelperFunctions.UserAsKbUser(User).Id;
                             db.Categories.Remove(cat);
                             db.SaveChanges();
                             result.Successful = true;                            
@@ -120,7 +117,6 @@ namespace KBVault.Web.Controllers
                             cat.Name = model.Name;
                             cat.IsHot = model.IsHot;
                             cat.SefName = model.SefName;
-                            cat.Author = KBVaultHelperFunctions.UserAsKbUser(User).Id;
                             if (model.ParentId > 0)
                                 cat.Parent = model.ParentId;
                             else

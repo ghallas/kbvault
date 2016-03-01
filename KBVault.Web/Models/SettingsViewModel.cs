@@ -1,11 +1,10 @@
-﻿
+﻿using KBVault.Web.Resources;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using KBVault.Dal;
-using Resources;
 
 namespace KBVault.Web.Models
 {
@@ -26,10 +25,6 @@ namespace KBVault.Web.Models
                 this.ShareThisPublicKey = set.ShareThisPublicKey;
                 this.TagLine = set.TagLine;
                 this.IndexFileExtensions = set.IndexFileExtensions;
-                this.ArticlePrefix = set.ArticlePrefix;
-                this.AnalyticsAccount = set.AnalyticsAccount;
-                this.BackupPath = set.BackupPath;
-                
             }
         }
 
@@ -42,9 +37,5 @@ namespace KBVault.Web.Models
         public string ShareThisPublicKey { get; set; }
         public string DisqusShortName { get; set; }
         public string IndexFileExtensions { get; set; }
-        [Required(ErrorMessageResourceType = typeof(UIResources), ErrorMessageResourceName = "SettingsArticlePrefixRequiredMessage")]
-        public string ArticlePrefix { get; set; }
-        public string AnalyticsAccount { get; set; }
-        public string BackupPath { get; set; }
     }
 }

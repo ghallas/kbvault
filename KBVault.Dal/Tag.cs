@@ -21,9 +21,7 @@ namespace KBVault.Dal
     
         public long Id { get; set; }
         public string Name { get; set; }
-        public long Author { get; set; }
     
         public virtual ICollection<ArticleTag> ArticleTags { get; set; }
-        public virtual KbUser KbUser { get; set; }
     }
 }

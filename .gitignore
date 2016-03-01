@@ -8,5 +8,3 @@ KBVault.Core/obj/*
 KBVault.Core/obj/*/*
 KBVault.Core/bin/*
 KBVault.Web/Lucene/*
-KBVault.Web/Uploads/*
-KBVault.Wen/logs/*

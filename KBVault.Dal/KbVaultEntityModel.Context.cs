@@ -35,7 +35,6 @@ namespace KBVault.Dal
         public DbSet<Attachment> Attachments { get; set; }
         public DbSet<Article> Articles { get; set; }
         public DbSet<Setting> Settings { get; set; }
-        public DbSet<Activity> Activities { get; set; }
     
         public virtual int AssignTagsToArticle(Nullable<long> articleId, string tags)
         {
@@ -62,15 +61,6 @@ namespace KBVault.Dal
         public virtual ObjectResult<TopTagItem> GetTopTags()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<TopTagItem>("GetTopTags");
-        }
-    
-        public virtual ObjectResult<SimilarArticle> GetSimilarArticles(Nullable<int> articleId)
-        {
-            var articleIdParameter = articleId.HasValue ?
-                new ObjectParameter("ArticleId", articleId) :
-                new ObjectParameter("ArticleId", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SimilarArticle>("GetSimilarArticles", articleIdParameter);
         }
     }
 }

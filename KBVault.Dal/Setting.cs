@@ -21,11 +21,5 @@ namespace KBVault.Dal
         public string ShareThisPublicKey { get; set; }
         public string DisqusShortName { get; set; }
         public string IndexFileExtensions { get; set; }
-        public string ArticlePrefix { get; set; }
-        public string AnalyticsAccount { get; set; }
-        public long Author { get; set; }
-        public string BackupPath { get; set; }
-    
-        public virtual KbUser KbUser { get; set; }
     }
 }

@@ -6,19 +6,13 @@ using System.Web.Mvc;
 
 namespace KBVault.Web.Controllers
 {
-    public class ErrorController : KbVaultAdminController
+    public class ErrorController : Controller
     {
         //
         // GET: /Error/
 
         public ActionResult Index()
         {
-            ViewBag.ErrorMessage = "...";
-            Exception ex = GetGlobalException();
-            if( ex != null )
-            {                
-                ViewBag.ErrorMessage = ex.Message;
-            }            
             return View();
         }
 

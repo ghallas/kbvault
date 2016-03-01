@@ -4,8 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using KBVault.Dal;
+using KBVault.Web.Resources;
 using NLog;
-using Resources;
 
 namespace KBVault.Web.Helpers
 {
@@ -13,35 +13,19 @@ namespace KBVault.Web.Helpers
     {
         private static Logger Log = LogManager.GetCurrentClassLogger();
 
-        public static void RemoveLocalAttachmentFile(Attachment at)
-        {
-            try
-            {
-              string localPath = Path.Combine(HttpContext.Current.Server.MapPath(at.Path), at.FileName);
-              System.IO.File.Delete(localPath);
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex);
-                throw;
-            }
-        }
-
-        public static void RemoveAttachment(string hash,long currentUserId)
+        public static void RemoveAttachment(string hash)
         {
             try
             {
                 using( KbVaultEntities db = new KbVaultEntities())
-                {                                        
+                {                    
                     Attachment attachment = db.Attachments.First(a => a.Hash == hash);
                     if (attachment == null)
                         throw new ArgumentNullException(ErrorMessages.AttachmentNotFound);
                     string localPath = Path.Combine( HttpContext.Current.Server.MapPath(attachment.Path), attachment.FileName);
-                    attachment.Author = currentUserId;
                     db.Attachments.Remove(attachment);
                     db.SaveChanges();
                     System.IO.File.Delete(localPath);
-                                        
                 }
             }
             catch (Exception ex)
@@ -51,7 +35,7 @@ namespace KBVault.Web.Helpers
             }
         }
 
-        public static Attachment SaveAttachment(long articleId, HttpPostedFileBase attachedFile, long userId)
+        public static Attachment SaveAttachment(long articleId, HttpPostedFileBase attachedFile)
         {
             try
             {
@@ -72,7 +56,6 @@ namespace KBVault.Web.Helpers
                         attachment.ArticleId = articleId;
                         attachment.MimeType = attachedFile.ContentType;
                         attachment.Hash = Guid.NewGuid().ToString().Replace("-", "");
-                        attachment.Author = userId;
                         db.Attachments.Add(attachment);
                         article.Attachments.Add(attachment);
 

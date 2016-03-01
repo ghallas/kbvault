@@ -6,12 +6,10 @@ using System.Web.Mvc;
 using System.Web.Security;
 using KBVault.Core.MVC.Authorization;
 using KBVault.Web.Models;
-
+using KBVault.Web.Resources;
 using NLog;
 using KBVault.Dal;
 using System.Collections;
-using Resources;
-using KBVault.Web.Helpers;
 
 namespace KBVault.Web.Controllers
 {       
@@ -140,7 +138,7 @@ namespace KBVault.Web.Controllers
         }
         public ActionResult Index()
         {
-            return RedirectToAction("MyProfile");
+            return View();
         }
 
         [HttpPost]
@@ -259,7 +257,7 @@ namespace KBVault.Web.Controllers
         {
             using (KbVaultEntities db = new KbVaultEntities())
             {
-                KbUser usr = KbVaultAuthHelper.CreateUser("admin", "admin", "admin@kbvault.comx", "admin" ,1);
+                KbUser usr = KbVaultAuthHelper.CreateUser("admin", "admin", "admin@kbvault.comx", "admin");
                 usr = db.KbUsers.FirstOrDefault(u => u.Id == usr.Id);
                 if (usr != null)
                 {
@@ -279,7 +277,7 @@ namespace KBVault.Web.Controllers
                 {
                     using (KbVaultEntities db = new KbVaultEntities())
                     {
-                        KbUser usr = KbVaultAuthHelper.CreateUser(model.UserName, model.OldPassword, model.Email, model.Role,KBVaultHelperFunctions.UserAsKbUser(User).Id);
+                        KbUser usr = KbVaultAuthHelper.CreateUser(model.UserName, model.OldPassword, model.Email, model.Role);
                         usr = db.KbUsers.FirstOrDefault(u => u.Id == usr.Id);
                         if (usr != null)
                         {
@@ -295,7 +293,7 @@ namespace KBVault.Web.Controllers
             catch (Exception ex)
             {
                 Log.Error(ex);
-                AddGlobalException(ex);
+                ShowOperationMessage(ex.Message);
                 return RedirectToAction("Index", "Error");
             }
         }
