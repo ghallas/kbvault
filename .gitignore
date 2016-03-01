@@ -8,3 +8,6 @@ KBVault.Core/obj/*
 KBVault.Core/obj/*/*
 KBVault.Core/bin/*
 KBVault.Web/Lucene/*
+/KBVault.Web/Properties/PublishProfiles/dev(10.0.0.210).pubxml
+/*.suo
+/KBVault.Web/*.user
